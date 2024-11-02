@@ -2,20 +2,14 @@ import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid2"
 import Link from "@mui/material/Link"
 
+const purple: string = "#7341ff"
+
 export const Information = () => {
   return (
-    <Box sx={{ maxWidth: 500 }}>
-      <Grid container spacing={1} wrap="wrap">
-        <Grid size={2} sx={{ display: "flex", justifyContent: "center"}}>
-          <Link>О нас</Link>
-        </Grid>
-        <Grid size={2} sx={{ display: "flex", justifyContent: "center"}}>
-          <Link>Контакты</Link>
-        </Grid>
-        <Grid size={6} sx={{ display: "flex", justifyContent: "center"}}>
-          <Link>Политика конфиденциальности</Link>
-        </Grid>
-      </Grid>
+    <Box display="flex" justifyContent="space-between" gap="15px">
+      <Link color={purple}>О нас</Link>
+      <Link color={purple}>Контакты</Link>
+      <Link color={purple}>Политика конфиденциальности</Link>
     </Box>
   )
 }
