@@ -3,7 +3,7 @@
 import Box from "@mui/material/Box"
 import TextField from "@mui/material/TextField"
 import { useForm } from "react-hook-form"
-import { SxProps, Theme, Typography } from "@mui/material"
+import { Button, SxProps, Theme, Typography } from "@mui/material"
 
 type SignInForm = {
     email: string,
@@ -20,7 +20,15 @@ const style: SxProps<Theme> = {
 export const SignIn: React.FC = () => {
     const {
         register,
+        getValues
     } = useForm()
+
+    const onSend = () => {
+        const data = getValues("user")
+        const jsonData = JSON.stringify(data)
+
+        localStorage.setItem("user", jsonData)
+    }
 
     return (
         <Box sx={style}>
@@ -28,14 +36,15 @@ export const SignIn: React.FC = () => {
             <TextField
                 label="Email"
                 type="email"
-                {...register("email")}
+                {...register("user.email")}
             />
             <TextField
                 id="outlined-password-input"
                 label="Password"
                 type="password"
-                {...register("password")}
+                {...register("user.password")}
             />
+            <Button onClick={onSend}>Войти</Button>
         </Box>
     )
 }
