@@ -37,12 +37,14 @@ export const SignIn: React.FC = () => {
                 label="Email"
                 type="email"
                 {...register("user.email")}
+                sx={{backgroundColor: "white"}}
             />
             <TextField
                 id="outlined-password-input"
                 label="Password"
                 type="password"
                 {...register("user.password")}
+                sx={{backgroundColor: "white"}}
             />
             <Button onClick={onSend}>Войти</Button>
         </Box>
