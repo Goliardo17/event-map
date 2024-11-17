@@ -45,7 +45,7 @@ export const SignUp: React.FC = () => {
 
     return (
         <Box sx={style}>
-            <Typography variant="h5">Войти</Typography>
+            <Typography variant="h5">Зарегистрироваться</Typography>
             <TextField
                 label="Name"
                 type="name"
