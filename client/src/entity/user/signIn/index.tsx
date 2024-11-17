@@ -1,9 +1,14 @@
 'use client'
 
-import Box from "@mui/material/Box"
-import TextField from "@mui/material/TextField"
 import { useForm } from "react-hook-form"
-import { Button, SxProps, Theme, Typography } from "@mui/material"
+import { yupResolver } from '@hookform/resolvers/yup';
+import { signInSchema } from '@/src/entity/user/signIn/schema'
+
+import {SxProps, Theme} from "@mui/material"
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import Typography from "@mui/material/Typography"
+import TextField from "@mui/material/TextField";
 
 type SignInForm = {
     email: string,
@@ -21,12 +26,18 @@ export const SignIn: React.FC = () => {
     const {
         register,
         getValues
-    } = useForm()
+    } = useForm<SignInForm>({
+        defaultValues: {
+            email: '',
+            password: ''
+        },
+        resolver: yupResolver(signInSchema)
+    })
 
     const onSend = () => {
-        const data = getValues("user")
-        const jsonData = JSON.stringify(data)
+        const data: SignInForm = getValues()
 
+        const jsonData = JSON.stringify(data)
         localStorage.setItem("user", jsonData)
     }
 
@@ -36,15 +47,15 @@ export const SignIn: React.FC = () => {
             <TextField
                 label="Email"
                 type="email"
-                {...register("user.email")}
-                sx={{backgroundColor: "white"}}
+                {...register("email")}
+                sx={{ backgroundColor: "white" }}
             />
             <TextField
                 id="outlined-password-input"
                 label="Password"
                 type="password"
-                {...register("user.password")}
-                sx={{backgroundColor: "white"}}
+                {...register("password")}
+                sx={{ backgroundColor: "white" }}
             />
             <Button onClick={onSend}>Войти</Button>
         </Box>

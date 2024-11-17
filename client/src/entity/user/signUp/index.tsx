@@ -1,9 +1,20 @@
 'use client'
 
-import Box from "@mui/material/Box"
-import TextField from "@mui/material/TextField"
 import { useForm } from "react-hook-form"
-import { Button, SxProps, Theme, Typography } from "@mui/material"
+import { yupResolver } from '@hookform/resolvers/yup';
+import { signUpSchema } from '@/src/entity/user/signUp/schema'
+
+import {SxProps, Theme} from "@mui/material"
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import Typography from "@mui/material/Typography"
+import TextField from "@mui/material/TextField";
+
+type SignUpForm = {
+    name: string,
+    email: string,
+    password: string
+}
 
 const style: SxProps<Theme> = {
     display: "flex",
@@ -16,11 +27,20 @@ export const SignUp: React.FC = () => {
     const {
         register,
         getValues
-    } = useForm()
+    } = useForm<SignUpForm>({
+        defaultValues: {
+            name: '',
+            email: '',
+            password: ''
+        },
+        resolver: yupResolver(signUpSchema)
+    })
 
     const onSend = () => {
-        const data = getValues("registrate")
-        console.log(data)
+        const data: SignUpForm = getValues()
+
+        const jsonData = JSON.stringify(data)
+        localStorage.setItem("user", jsonData)
     }
 
     return (
@@ -29,20 +49,20 @@ export const SignUp: React.FC = () => {
             <TextField
                 label="Name"
                 type="name"
-                {...register("registrate.name")}
+                {...register("name")}
                 sx={{backgroundColor: "white"}}
             />
             <TextField
                 label="Email"
                 type="email"
-                {...register("registrate.email")}
+                {...register("email")}
                 sx={{backgroundColor: "white"}}
             />
             <TextField
                 id="outlined-password-input"
                 label="Password"
                 type="password"
-                {...register("registrate.password")}
+                {...register("password")}
                 sx={{backgroundColor: "white"}}
             />
             <Button onClick={onSend}>Войти</Button>
